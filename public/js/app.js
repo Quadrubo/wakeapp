@@ -23323,10 +23323,7 @@ __webpack_require__.r(__webpack_exports__);
     QuadInput: _Components_Input_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
     QuadInputError: _Components_InputError_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
-  props: {
-    news: Object,
-    page_image: Object
-  },
+  props: {},
   data: function data() {
     return {
       activeItem: [],
@@ -27216,85 +27213,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
-var _hoisted_1 = {
-  "class": "py-12"
-};
-var _hoisted_2 = {
-  "class": "max-w-7xl mx-auto px-6"
-};
-var _hoisted_3 = {
-  "class": "container py-6 grid grid-cols-1 m-auto"
-};
-var _hoisted_4 = {
-  "class": "p-4 h-full"
-};
-var _hoisted_5 = {
-  "class": "text-yellow-500 font-extrabold"
-};
-var _hoisted_6 = {
-  "class": "font-semibold text-dark text-xl block"
-};
-var _hoisted_7 = {
-  "class": "text-gray-700 pb-2 border-b-2"
-};
-var _hoisted_8 = ["innerHTML"];
 
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "flex flex-col bg-white rounded-xl overflow-hidden shadow-lg mb-10"
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "py-12"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "p-4 h-full space-y-2"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
-  "class": "font-semibold text-dark text-2xl"
-}, " Anfahrt "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Unser Studio befindet sich in der "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-  href: "https://www.google.com/maps/place/Studio27+-+Yoga+und+mehr/@52.418004,13.303603,17z/data=!3m1!4b1!4m5!3m4!1s0x47a85b2b75e1a063:0x4a740ca5f6284e33!8m2!3d52.418004!4d13.3057917",
-  target: "_blank",
-  "class": "underline"
-}, "Lindenstr. 27"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(", 12207 Berlin. ")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("iframe", {
-  width: "",
-  height: "550",
-  src: "https://maps.google.de/maps?hl=de&q=Yoga-Studio27%20%20+Lindenstr.+27%20Berlin&t=&z=14&ie=utf8&iwloc=b&output=embed",
-  frameborder: "0",
-  scrolling: "no",
-  marginheight: "0",
-  marginwidth: "0",
-  "class": "border-y-2 py-2 w-full"
-}, "\r\n                            "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Wir freuen uns auf Sie!")])])], -1
+  "class": "max-w-7xl mx-auto px-6"
+})], -1
 /* HOISTED */
 );
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_quad_front_page_image = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("quad-front-page-image");
-
   var _component_app_layout = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("app-layout");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_app_layout, {
     title: "Start"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_quad_front_page_image, {
-        src: '/storage/' + (_ctx.page_image ? _ctx.page_image.image : null)
-      }, null, 8
-      /* PROPS */
-      , ["src"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.news, function (single_news, key) {
-        return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-          key: key,
-          "class": "col-span-1 flex flex-col bg-white rounded-xl overflow-hidden shadow-lg mb-10"
-        }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(single_news.tag), 1
-        /* TEXT */
-        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(single_news.title), 1
-        /* TEXT */
-        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(single_news.date), 1
-        /* TEXT */
-        ), single_news.description ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("article", {
-          key: 0,
-          innerHTML: _ctx.convert(single_news.description),
-          "class": "prose max-w-none"
-        }, null, 8
-        /* PROPS */
-        , _hoisted_8)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
-      }), 128
-      /* KEYED_FRAGMENT */
-      ))])]), _hoisted_9])])];
+      return [_hoisted_1];
     }),
     _: 1
     /* STABLE */
