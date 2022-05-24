@@ -1,97 +1,28 @@
-<script setup>
-import { ref } from 'vue';
-import { useForm } from '@inertiajs/inertia-vue3';
-import JetActionMessage from '@/Jetstream/ActionMessage.vue';
-import JetActionSection from '@/Jetstream/ActionSection.vue';
-import JetButton from '@/Jetstream/Button.vue';
-import JetDialogModal from '@/Jetstream/DialogModal.vue';
-import JetInput from '@/Jetstream/Input.vue';
-import JetInputError from '@/Jetstream/InputError.vue';
-import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
-
-defineProps({
-    sessions: Array,
-});
-
-const confirmingLogout = ref(false);
-const passwordInput = ref(null);
-
-const form = useForm({
-    password: '',
-});
-
-const confirmLogout = () => {
-    confirmingLogout.value = true;
-
-    setTimeout(() => passwordInput.value.focus(), 250);
-};
-
-const logoutOtherBrowserSessions = () => {
-    form.delete(route('other-browser-sessions.destroy'), {
-        preserveScroll: true,
-        onSuccess: () => closeModal(),
-        onError: () => passwordInput.value.focus(),
-        onFinish: () => form.reset(),
-    });
-};
-
-const closeModal = () => {
-    confirmingLogout.value = false;
-
-    form.reset();
-};
-</script>
-
 <template>
-    <JetActionSection>
+    <quad-action-section>
         <template #title>
-            Browser Sessions
+            Browsersitzungen
         </template>
 
         <template #description>
-            Manage and log out your active sessions on other browsers and devices.
+            Verwalten und melden Sie Ihre aktiven Sitzungen auf anderen Browsern und Geräten ab.
         </template>
 
         <template #content>
             <div class="max-w-xl text-sm text-gray-600">
-                If necessary, you may log out of all of your other browser sessions across all of your devices. Some of your recent sessions are listed below; however, this list may not be exhaustive. If you feel your account has been compromised, you should also update your password.
+                Bei Bedarf können Sie sich von all Ihren anderen Browsersitzungen auf anderen Geräten abmelden. Ihre kürzlichen Sitzungen sind unten aufgelistet. Wenn Sie denken, dass Ihr Account gefährdet ist, sollten Sie auch Ihr Passwort ändern. 
             </div>
 
             <!-- Other Browser Sessions -->
-            <div v-if="sessions.length > 0" class="mt-5 space-y-6">
-                <div v-for="(session, i) in sessions" :key="i" class="flex items-center">
+            <div class="mt-5 space-y-6" v-if="sessions.length > 0">
+                <div class="flex items-center" v-for="(session, i) in sessions" :key="i">
                     <div>
-                        <svg
-                            v-if="session.agent.is_desktop"
-                            fill="none"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            class="w-8 h-8 text-gray-500"
-                        >
-                            <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8 text-gray-500" v-if="session.agent.is_desktop">
+                            <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                         </svg>
 
-                        <svg
-                            v-else
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            stroke-width="2"
-                            stroke="currentColor"
-                            fill="none"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="w-8 h-8 text-gray-500"
-                        >
-                            <path d="M0 0h24v24H0z" stroke="none" /><rect
-                                x="7"
-                                y="4"
-                                width="10"
-                                height="16"
-                                rx="1"
-                            /><path d="M11 5h2M12 17v.01" />
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-gray-500" v-else>
+                            <path d="M0 0h24v24H0z" stroke="none"></path><rect x="7" y="4" width="10" height="16" rx="1"></rect><path d="M11 5h2M12 17v.01"></path>
                         </svg>
                     </div>
 
@@ -104,8 +35,8 @@ const closeModal = () => {
                             <div class="text-xs text-gray-500">
                                 {{ session.ip_address }},
 
-                                <span v-if="session.is_current_device" class="text-green-500 font-semibold">This device</span>
-                                <span v-else>Last active {{ session.last_active }}</span>
+                                <span class="text-green-500 font-semibold" v-if="session.is_current_device">Dieses Gerät</span>
+                                <span v-else>Zuletzt aktiv {{ session.last_active }}</span>
                             </div>
                         </div>
                     </div>
@@ -113,53 +44,94 @@ const closeModal = () => {
             </div>
 
             <div class="flex items-center mt-5">
-                <JetButton @click="confirmLogout">
-                    Log Out Other Browser Sessions
-                </JetButton>
+                <quad-button @click="confirmLogout" color="yellow" :strength="100">
+                    Aus anderen Browsersitzungen abmelden
+                </quad-button>
 
-                <JetActionMessage :on="form.recentlySuccessful" class="ml-3">
-                    Done.
-                </JetActionMessage>
+                <quad-action-message :on="form.recentlySuccessful" class="ml-3">
+                    Fertig.
+                </quad-action-message>
             </div>
 
             <!-- Log Out Other Devices Confirmation Modal -->
-            <JetDialogModal :show="confirmingLogout" @close="closeModal">
+            <quad-dialog-modal :show="confirmingLogout" @close="closeModal">
                 <template #title>
-                    Log Out Other Browser Sessions
+                    Aus anderen Browsersitzungen abmelden
                 </template>
 
                 <template #content>
-                    Please enter your password to confirm you would like to log out of your other browser sessions across all of your devices.
+                    Bitte geben Sie Ihr Passwort ein, um zu bestätigen, dass Sie sich aus anderen Browsersitzungen abmelden wollen.
 
                     <div class="mt-4">
-                        <JetInput
-                            ref="passwordInput"
-                            v-model="form.password"
-                            type="password"
-                            class="mt-1 block w-3/4"
-                            placeholder="Password"
-                            @keyup.enter="logoutOtherBrowserSessions"
-                        />
+                        <quad-input type="password" class="mt-1 block w-3/4" placeholder="Password"
+                                    ref="password"
+                                    v-model="form.password"
+                                    @keyup.enter="logoutOtherBrowserSessions"
+                                    color="yellow" :strength="200" />
 
-                        <JetInputError :message="form.errors.password" class="mt-2" />
+                        <quad-input-error :message="form.errors.password" class="mt-2" />
                     </div>
                 </template>
 
                 <template #footer>
-                    <JetSecondaryButton @click="closeModal">
-                        Cancel
-                    </JetSecondaryButton>
+                    <quad-button @click="closeModal" color="gray">
+                        Abbrechen
+                    </quad-button>
 
-                    <JetButton
-                        class="ml-3"
-                        :class="{ 'opacity-25': form.processing }"
-                        :disabled="form.processing"
-                        @click="logoutOtherBrowserSessions"
-                    >
-                        Log Out Other Browser Sessions
-                    </JetButton>
+                    <quad-button class="ml-3" @click="logoutOtherBrowserSessions" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" color="yellow" :strength="100">
+                        Aus anderen Browsersitzungen abmelden
+                    </quad-button>
                 </template>
-            </JetDialogModal>
+            </quad-dialog-modal>
         </template>
-    </JetActionSection>
+    </quad-action-section>
 </template>
+
+<script>
+    import { defineComponent } from 'vue';
+
+    import QuadActionMessage from '@/Components/ActionMessage.vue';
+    import QuadActionSection from '@/Components/ActionSection.vue';
+    import QuadButton from '@/Components/Button.vue';
+    import QuadDialogModal from '@/Components/DialogModal.vue';
+    import QuadInput from '@/Components/Input.vue';
+    import QuadInputError from '@/Components/InputError.vue';
+
+    export default defineComponent({
+        props: ['sessions'],
+        components: {
+            QuadActionMessage,
+            QuadActionSection,
+            QuadButton,
+            QuadDialogModal,
+            QuadInput,
+            QuadInputError,
+        },
+        data() {
+            return {
+                confirmingLogout: false,
+                form: this.$inertia.form({
+                    password: '',
+                })
+            }
+        },
+        methods: {
+            confirmLogout() {
+                this.confirmingLogout = true
+                setTimeout(() => this.$refs.password.focus(), 250)
+            },
+            logoutOtherBrowserSessions() {
+                this.form.delete(route('other-browser-sessions.destroy'), {
+                    preserveScroll: true,
+                    onSuccess: () => this.closeModal(),
+                    onError: () => this.$refs.password.focus(),
+                    onFinish: () => this.form.reset(),
+                })
+            },
+            closeModal() {
+                this.confirmingLogout = false
+                this.form.reset()
+            },
+        },
+    })
+</script>

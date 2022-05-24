@@ -1,64 +1,66 @@
-<script setup>
-import { ref } from 'vue';
-import { Head, useForm } from '@inertiajs/inertia-vue3';
-import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue';
-import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue';
-import JetButton from '@/Jetstream/Button.vue';
-import JetInput from '@/Jetstream/Input.vue';
-import JetLabel from '@/Jetstream/Label.vue';
-import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
-
-const form = useForm({
-    password: '',
-});
-
-const passwordInput = ref(null);
-
-const submit = () => {
-    form.post(route('password.confirm'), {
-        onFinish: () => {
-            form.reset();
-
-            passwordInput.value.focus();
-        },
-    });
-};
-</script>
-
 <template>
-    <Head title="Secure Area" />
+    <Head title="sicherer Bereich" />
 
-    <JetAuthenticationCard>
+    <quad-authentication-card>
         <template #logo>
-            <JetAuthenticationCardLogo />
+            <quad-authentication-card-logo />
         </template>
 
         <div class="mb-4 text-sm text-gray-600">
-            This is a secure area of the application. Please confirm your password before continuing.
+            Dies ist ein sicherer Bereich der Anwendung. Bitte bestätigen Sie Ihr Passwort, um fortzufahren.
         </div>
 
-        <JetValidationErrors class="mb-4" />
+        <quad-validation-errors class="mb-4" />
 
         <form @submit.prevent="submit">
             <div>
-                <JetLabel for="password" value="Password" />
-                <JetInput
-                    id="password"
-                    ref="passwordInput"
-                    v-model="form.password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="current-password"
-                    autofocus
-                />
+                <quad-label for="password" value="Passwort" />
+                <quad-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" color="yellow" :strength="200" required autocomplete="current-password" autofocus />
             </div>
 
             <div class="flex justify-end mt-4">
-                <JetButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Confirm
-                </JetButton>
+                <quad-button class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" color="yellow" :strength="100">
+                    Bestätigen
+                </quad-button>
             </div>
         </form>
-    </JetAuthenticationCard>
+    </quad-authentication-card>
 </template>
+
+<script>
+    import { defineComponent } from 'vue';
+    import { Head } from '@inertiajs/inertia-vue3';
+
+    import QuadAuthenticationCard from '@/Components/AuthenticationCard.vue';
+    import QuadAuthenticationCardLogo from '@/Components/AuthenticationCardLogo.vue';
+    import QuadButton from '@/Components/Button.vue';
+    import QuadInput from '@/Components/Input.vue';
+    import QuadLabel from '@/Components/Label.vue';
+    import QuadValidationErrors from '@/Components/ValidationErrors.vue';
+
+    export default defineComponent({
+        components: {
+            Head,
+            QuadAuthenticationCard,
+            QuadAuthenticationCardLogo,
+            QuadButton,
+            QuadInput,
+            QuadLabel,
+            QuadValidationErrors
+        },
+        data() {
+            return {
+                form: this.$inertia.form({
+                    password: '',
+                })
+            }
+        },
+        methods: {
+            submit() {
+                this.form.post(this.route('password.confirm'), {
+                    onFinish: () => this.form.reset(),
+                })
+            }
+        }
+    })
+</script>

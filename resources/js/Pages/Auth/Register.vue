@@ -1,108 +1,102 @@
-<script setup>
-import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
-import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue';
-import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue';
-import JetButton from '@/Jetstream/Button.vue';
-import JetInput from '@/Jetstream/Input.vue';
-import JetCheckbox from '@/Jetstream/Checkbox.vue';
-import JetLabel from '@/Jetstream/Label.vue';
-import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
-
-const form = useForm({
-    name: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
-    terms: false,
-});
-
-const submit = () => {
-    form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
-    });
-};
-</script>
-
 <template>
-    <Head title="Register" />
+    <Head title="Registrieren" />
 
-    <JetAuthenticationCard>
+    <quad-authentication-card>
         <template #logo>
-            <JetAuthenticationCardLogo />
+            <quad-authentication-card-logo class="text-5xl"/>
         </template>
 
-        <JetValidationErrors class="mb-4" />
+        <quad-validation-errors class="mb-4" />
 
         <form @submit.prevent="submit">
-            <div>
-                <JetLabel for="name" value="Name" />
-                <JetInput
-                    id="name"
-                    v-model="form.name"
-                    type="text"
-                    class="mt-1 block w-full"
-                    required
-                    autofocus
-                    autocomplete="name"
-                />
+
+
+            <div class="mt-4">
+                <quad-label for="name" value="Name" />
+                <quad-input id="name" type="text" class="mt-1 block w-full" v-model="form.name" color="yellow" :strength="200" required autofocus autocomplete="name" />
             </div>
 
             <div class="mt-4">
-                <JetLabel for="email" value="Email" />
-                <JetInput
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    required
-                />
+                <quad-label for="email" value="E-Mail" />
+                <quad-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" color="yellow" :strength="200" required />
             </div>
 
             <div class="mt-4">
-                <JetLabel for="password" value="Password" />
-                <JetInput
-                    id="password"
-                    v-model="form.password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="new-password"
-                />
+                <quad-label for="password" value="Passwort" />
+                <quad-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" color="yellow" :strength="200" required autocomplete="new-password" />
             </div>
 
             <div class="mt-4">
-                <JetLabel for="password_confirmation" value="Confirm Password" />
-                <JetInput
-                    id="password_confirmation"
-                    v-model="form.password_confirmation"
-                    type="password"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="new-password"
-                />
+                <quad-label for="password_confirmation" value="Passwort bestätigen" />
+                <quad-input id="password_confirmation" type="password" class="mt-1 block w-full" v-model="form.password_confirmation" color="yellow" :strength="200" required autocomplete="new-password" />
             </div>
 
-            <div v-if="$page.props.jetstream.hasTermsAndPrivacyPolicyFeature" class="mt-4">
-                <JetLabel for="terms">
+            <div class="mt-4" v-if="$page.props.jetstream.hasTermsAndPrivacyPolicyFeature">
+                <quad-label for="terms">
                     <div class="flex items-center">
-                        <JetCheckbox id="terms" v-model:checked="form.terms" name="terms" />
+                        <quad-checkbox name="terms" id="terms" v-model:checked="form.terms" color="yellow" :strength="100" />
 
                         <div class="ml-2">
-                            I agree to the <a target="_blank" :href="route('terms.show')" class="underline text-sm text-gray-600 hover:text-gray-900">Terms of Service</a> and <a target="_blank" :href="route('policy.show')" class="underline text-sm text-gray-600 hover:text-gray-900">Privacy Policy</a>
+                            Ich habe die <a target="_blank" :href="route('terms.show')" class="underline text-sm text-gray-600 hover:text-gray-900">Nutzungsbedingungen</a> und die <a target="_blank" :href="route('policy.show')" class="underline text-sm text-gray-600 hover:text-gray-900">Datenschutzerklärung</a> gelesen und erkläre mich mit diesen einverstanden.
                         </div>
                     </div>
-                </JetLabel>
+                </quad-label>
             </div>
 
             <div class="flex items-center justify-end mt-4">
                 <Link :href="route('login')" class="underline text-sm text-gray-600 hover:text-gray-900">
-                    Already registered?
+                    Bereits registriert?
                 </Link>
 
-                <JetButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Register
-                </JetButton>
+                <quad-button class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" type="submit" color="yellow" :strength="100">
+                    Registrieren
+                </quad-button>
             </div>
         </form>
-    </JetAuthenticationCard>
+    </quad-authentication-card>
 </template>
+
+<script>
+    import { defineComponent } from 'vue'
+    import { Head, Link } from '@inertiajs/inertia-vue3';
+
+    import QuadAuthenticationCard from '@/Components/AuthenticationCard.vue'
+    import QuadAuthenticationCardLogo from '@/Components/AuthenticationCardLogo.vue'
+    import QuadButton from '@/Components/Button.vue'
+    import QuadInput from '@/Components/Input.vue'
+    import QuadCheckbox from '@/Components/Checkbox.vue'
+    import QuadLabel from '@/Components/Label.vue'
+    import QuadValidationErrors from '@/Components/ValidationErrors.vue'
+
+    export default defineComponent({
+        components: {
+            Head,
+            Link,
+            QuadAuthenticationCard,
+            QuadAuthenticationCardLogo,
+            QuadButton,
+            QuadInput,
+            QuadCheckbox,
+            QuadLabel,
+            QuadValidationErrors
+        },
+        data() {
+            return {
+                form: this.$inertia.form({
+                    name: '',
+                    email: '',
+                    password: '',
+                    password_confirmation: '',
+                    terms: false,
+                })
+            }
+        },
+        methods: {
+            submit() {
+                this.form.post(this.route('register'), {
+                    onFinish: () => this.form.reset('password', 'password_confirmation'),
+                })
+            }
+        }
+    })
+</script>

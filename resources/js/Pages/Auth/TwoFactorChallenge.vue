@@ -1,48 +1,9 @@
-<script setup>
-import { nextTick, ref } from 'vue';
-import { Head, useForm } from '@inertiajs/inertia-vue3';
-import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue';
-import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue';
-import JetButton from '@/Jetstream/Button.vue';
-import JetInput from '@/Jetstream/Input.vue';
-import JetLabel from '@/Jetstream/Label.vue';
-import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
-
-const recovery = ref(false);
-
-const form = useForm({
-    code: '',
-    recovery_code: '',
-});
-
-const recoveryCodeInput = ref(null);
-const codeInput = ref(null);
-
-const toggleRecovery = async () => {
-    recovery.value ^= true;
-
-    await nextTick();
-
-    if (recovery.value) {
-        recoveryCodeInput.value.focus();
-        form.code = '';
-    } else {
-        codeInput.value.focus();
-        form.recovery_code = '';
-    }
-};
-
-const submit = () => {
-    form.post(route('two-factor.login'));
-};
-</script>
-
 <template>
     <Head title="Two-factor Confirmation" />
 
-    <JetAuthenticationCard>
+    <quad-authentication-card>
         <template #logo>
-            <JetAuthenticationCardLogo />
+            <quad-authentication-card-logo class="text-5xl" />
         </template>
 
         <div class="mb-4 text-sm text-gray-600">
@@ -55,33 +16,17 @@ const submit = () => {
             </template>
         </div>
 
-        <JetValidationErrors class="mb-4" />
+        <quad-validation-errors class="mb-4" />
 
         <form @submit.prevent="submit">
             <div v-if="! recovery">
-                <JetLabel for="code" value="Code" />
-                <JetInput
-                    id="code"
-                    ref="codeInput"
-                    v-model="form.code"
-                    type="text"
-                    inputmode="numeric"
-                    class="mt-1 block w-full"
-                    autofocus
-                    autocomplete="one-time-code"
-                />
+                <quad-label for="code" value="Code" />
+                <quad-input ref="code" id="code" type="text" inputmode="numeric" class="mt-1 block w-full" v-model="form.code" color="yellow" :strength="200" autofocus autocomplete="one-time-code" />
             </div>
 
             <div v-else>
-                <JetLabel for="recovery_code" value="Recovery Code" />
-                <JetInput
-                    id="recovery_code"
-                    ref="recoveryCodeInput"
-                    v-model="form.recovery_code"
-                    type="text"
-                    class="mt-1 block w-full"
-                    autocomplete="one-time-code"
-                />
+                <quad-label for="recovery_code" value="Recovery Code" />
+                <quad-input ref="recovery_code" id="recovery_code" type="text" class="mt-1 block w-full" v-model="form.recovery_code" color="yellow" :strength="200" autocomplete="one-time-code" />
             </div>
 
             <div class="flex items-center justify-end mt-4">
@@ -95,10 +40,63 @@ const submit = () => {
                     </template>
                 </button>
 
-                <JetButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <quad-button class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" color="yellow" :strength="100">
                     Log in
-                </JetButton>
+                </quad-button>
             </div>
         </form>
-    </JetAuthenticationCard>
+    </quad-authentication-card>
 </template>
+
+<script>
+    import { defineComponent } from 'vue';
+    import { Head } from '@inertiajs/inertia-vue3';
+    import QuadAuthenticationCard from '@/Components/AuthenticationCard.vue'
+    import QuadAuthenticationCardLogo from '@/Components/AuthenticationCardLogo.vue'
+    import QuadButton from '@/Components/Button.vue'
+    import QuadInput from '@/Components/Input.vue'
+    import QuadLabel from '@/Components/Label.vue'
+    import QuadValidationErrors from '@/Components/ValidationErrors.vue'
+
+    export default defineComponent({
+        components: {
+            Head,
+            QuadAuthenticationCard,
+            QuadAuthenticationCardLogo,
+            QuadButton,
+            QuadInput,
+            QuadLabel,
+            QuadValidationErrors,
+        },
+
+        data() {
+            return {
+                recovery: false,
+                form: this.$inertia.form({
+                    code: '',
+                    recovery_code: '',
+                })
+            }
+        },
+
+        methods: {
+            toggleRecovery() {
+                this.recovery ^= true
+
+                this.$nextTick(() => {
+                    if (this.recovery) {
+                        this.$refs.recovery_code.focus()
+                        this.form.code = '';
+                    } else {
+                        this.$refs.code.focus()
+                        this.form.recovery_code = ''
+                    }
+                })
+            },
+
+            submit() {
+                this.form.post(this.route('two-factor.login'))
+            }
+        }
+    })
+</script>

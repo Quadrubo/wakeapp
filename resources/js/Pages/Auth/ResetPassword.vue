@@ -1,83 +1,77 @@
-<script setup>
-import { Head, useForm } from '@inertiajs/inertia-vue3';
-import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue';
-import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue';
-import JetButton from '@/Jetstream/Button.vue';
-import JetInput from '@/Jetstream/Input.vue';
-import JetLabel from '@/Jetstream/Label.vue';
-import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
-
-const props = defineProps({
-    email: String,
-    token: String,
-});
-
-const form = useForm({
-    token: props.token,
-    email: props.email,
-    password: '',
-    password_confirmation: '',
-});
-
-const submit = () => {
-    form.post(route('password.update'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
-    });
-};
-</script>
-
 <template>
-    <Head title="Reset Password" />
+    <Head title="Passwort zurücksetzen" />
 
-    <JetAuthenticationCard>
+    <quad-authentication-card>
         <template #logo>
-            <JetAuthenticationCardLogo />
+            <quad-authentication-card-logo class="text-5xl" />
         </template>
 
-        <JetValidationErrors class="mb-4" />
+        <quad-validation-errors class="mb-4" />
 
         <form @submit.prevent="submit">
             <div>
-                <JetLabel for="email" value="Email" />
-                <JetInput
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    required
-                    autofocus
-                />
+                <quad-label for="email" value="E-Mail" />
+                <quad-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" color="yellow" :strength="200" required autofocus />
             </div>
 
             <div class="mt-4">
-                <JetLabel for="password" value="Password" />
-                <JetInput
-                    id="password"
-                    v-model="form.password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="new-password"
-                />
+                <quad-label for="password" value="Passwort" />
+                <quad-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" color="yellow" :strength="200" required autocomplete="new-password" />
             </div>
 
             <div class="mt-4">
-                <JetLabel for="password_confirmation" value="Confirm Password" />
-                <JetInput
-                    id="password_confirmation"
-                    v-model="form.password_confirmation"
-                    type="password"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="new-password"
-                />
+                <quad-label for="password_confirmation" value="Passwort bestätigen" />
+                <quad-input id="password_confirmation" type="password" class="mt-1 block w-full" v-model="form.password_confirmation" color="yellow" :strength="200" required autocomplete="new-password" />
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <JetButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Reset Password
-                </JetButton>
+                <quad-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing" color="yellow" :strength="100">
+                    Passwort zurücksetzen
+                </quad-button>
             </div>
         </form>
-    </JetAuthenticationCard>
+    </quad-authentication-card>
 </template>
+
+<script>
+    import { defineComponent } from 'vue';
+    import { Head } from '@inertiajs/inertia-vue3';
+    import QuadAuthenticationCard from '@/Components/AuthenticationCard.vue'
+    import QuadAuthenticationCardLogo from '@/Components/AuthenticationCardLogo.vue'
+    import QuadButton from '@/Components/Button.vue'
+    import QuadInput from '@/Components/Input.vue'
+    import QuadLabel from '@/Components/Label.vue'
+    import QuadValidationErrors from '@/Components/ValidationErrors.vue'
+    export default defineComponent({
+        components: {
+            Head,
+            QuadAuthenticationCard,
+            QuadAuthenticationCardLogo,
+            QuadButton,
+            QuadInput,
+            QuadLabel,
+            QuadValidationErrors
+        },
+        props: {
+            email: String,
+            token: String,
+        },
+        data() {
+            return {
+                form: this.$inertia.form({
+                    token: this.token,
+                    email: this.email,
+                    password: '',
+                    password_confirmation: '',
+                })
+            }
+        },
+        methods: {
+            submit() {
+                this.form.post(this.route('password.update'), {
+                    onFinish: () => this.form.reset('password', 'password_confirmation'),
+                })
+            }
+        }
+    })
+</script>

@@ -17,5 +17,20 @@ module.exports = {
         },
     },
 
+    safelist: [
+        {
+            pattern: /grid-cols-(.*)/,
+            variants: ['sm', 'md', 'lg', 'xl', '2xl']
+        },
+        {
+            pattern: /(border|text|bg|ring)-(.*)/,
+            variants: ['focus', 'hover', 'active']
+        },
+        {
+            pattern: /(pr)-\[(.*)px\]/,
+            variants: []
+        }
+    ],
+
     plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
 };
