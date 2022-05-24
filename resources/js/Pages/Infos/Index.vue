@@ -7,14 +7,30 @@
                 <p>{{ infos }}</p>
                 
                 <section>
-                    <div class="container py-6 grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 m-auto">
-                        <div v-for="(info, key) in infos" :key="key" class="col-span-1 flex flex-col bg-white rounded-lg overflow-hidden shadow-lg mb-10">
+                    <div class="container py-6 grid grid-cols-1 gap-4 m-auto">
+                        <div v-for="(info, key) in infos" :key="key" class="p-4 items-center col-span-1 flex flex-row justify-between bg-white rounded-lg overflow-hidden shadow-lg mb-10">
+                            
+                            <!-- eta -->
+                            <div>
+                                <h3 class="font-semibold text-dark text-2xl">{{ info.eta }}</h3>
+                            </div>
 
-                            <h1>Hallo und herzlich Willkommen in der Wake App!</h1>
+                            <!-- from -> to -->
+                            <div class="flex flex-row">
+                                <div>
+                                    {{ info.residence_longitude }} {{ info.residence_latitude }}
+                                </div>
+                                ------->
+                                <div>
+                                    {{ info.destination_longitude }} {{ info.destination_latitude }}
+                                </div>
+                            </div>
 
-                                
+                            <div>
+                                <p class="font-semibold text-dark text-xl">{{ info.transport_type }}</p>
+                            </div>
 
-                                <quad-button color="yellow">Test</quad-button>
+                            <quad-link :href="'/infos/' + info.id" color="purple">Berechnen</quad-link>
 
 
                             <!--<img :src="'/storage/' + teacher.image" :alt="teacher.name" class="w-full" />
@@ -51,6 +67,7 @@
     import QuadActionSection from '@/Components/ActionSection.vue'
     import QuadInput from '@/Components/Input.vue'
     import QuadInputError from '@/Components/InputError.vue'
+    import QuadLink from '@/Components/Link.vue'
 
 
     export default defineComponent({
@@ -60,7 +77,8 @@
             QuadPageImage,
             QuadActionSection,
             QuadInput,
-            QuadInputError
+            QuadInputError,
+            QuadLink
         },
         props: {
             infos: Object
