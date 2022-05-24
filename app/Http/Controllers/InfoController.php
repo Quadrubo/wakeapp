@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Info;
 use App\Http\Requests\StoreInfoRequest;
 use App\Http\Requests\UpdateInfoRequest;
+use Inertia\Inertia;
 
 class InfoController extends Controller
 {
@@ -15,7 +16,13 @@ class InfoController extends Controller
      */
     public function index()
     {
-        //
+        $infos = Info::all()->map(function ($info) {
+            return $info;
+        });
+
+        return Inertia::render('Infos/Index', [
+            'infos' => $infos
+        ]);
     } 
 
     /**
@@ -25,7 +32,7 @@ class InfoController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Infos/Create');
     }
 
     /**

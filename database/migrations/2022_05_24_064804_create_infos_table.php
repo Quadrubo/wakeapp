@@ -18,11 +18,11 @@ return new class extends Migration
             $table->timestamps();
             $table->time("eta");
             $table->string("time_to_get_up");
-            $table->string("residence_longitude");
-            $table->string("residence_latitude");
-            $table->string("destination_longitude");
-            $table->string("destination_latitude");
-            $table->string("");
+            $table->float("residence_longitude", 3, 6);
+            $table->float("residence_latitude", 3, 6);
+            $table->float("destination_longitude", 3, 6);
+            $table->float("destination_latitude", 3, 6);
+            $table->string("transport_type");
         });
     }
 
