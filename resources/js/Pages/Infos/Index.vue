@@ -4,6 +4,8 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto px-6">
 
+                <quad-link href="/infos/create/" color="purple">Erstellen</quad-link>
+
                 <p>{{ infos }}</p>
                 
                 <section>

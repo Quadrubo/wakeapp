@@ -34,7 +34,10 @@
 
                         <div class="mt-4">
                             <quad-label for="transport_type" value="Weg zur Schule" />
-                            <quad-select id="transport_type" class="mt-1 block w-full" v-model="form.transport_type" color="yellow" :strength="200" required/>
+                            <quad-select id="transport_type" class="mt-1 block w-full" v-model="form.transport_type" color="yellow" :strength="200" required>
+                                <option value="opnv">ÖPNV</option>
+                                <option value="auto">Auto</option>
+                            </quad-select>
                         </div>
 
                         <div class="mt-4 flex flex-row space-x-2">
@@ -85,18 +88,18 @@
         data() {
             return {
                 form: this.$inertia.form({
-                    name: '',
-                    email: '',
-                    password: '',
-                    password_confirmation: '',
-                    terms: false,
+                    eta: '',
+                    time_to_get_up: '',
+                    residence: '',
+                    destination: '',
+                    transport_type: ''       
                 })
             }
         },
         methods: {
             submit() {
-                this.form.post(this.route('register'), {
-                    onFinish: () => this.form.reset('password', 'password_confirmation'),
+                this.form.post(this.route('infos.store'), {
+                    onFinish: () => this.form.reset('eta', 'time_to_get_up', 'residence', 'destination', 'transport_type'),
                 })
             }
         }

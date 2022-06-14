@@ -22,6 +22,9 @@
                                 <quad-nav-link :href="route('home')" :active="route().current('home')" color="red">
                                     Start
                                 </quad-nav-link>
+                                <quad-nav-link :href="route('infos.index')" :active="route().current('infos.index')" color="red">
+                                    Infos
+                                </quad-nav-link>
                             </div>
                         </div>
 
@@ -93,6 +96,9 @@
                     <div class="pt-2 pb-3 space-y-1">
                         <quad-responsive-nav-link :href="route('home')" :active="route().current('home')" color="red">
                             Start
+                        </quad-responsive-nav-link>
+                         <quad-responsive-nav-link :href="route('infos.index')" :active="route().current('infos.index')" color="red">
+                            Info
                         </quad-responsive-nav-link>
                     </div>
 

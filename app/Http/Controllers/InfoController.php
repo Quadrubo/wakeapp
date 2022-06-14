@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Info;
 use App\Http\Requests\StoreInfoRequest;
 use App\Http\Requests\UpdateInfoRequest;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class InfoController extends Controller
@@ -41,9 +42,19 @@ class InfoController extends Controller
      * @param  \App\Http\Requests\StoreInfoRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreInfoRequest $request)
+    public function store(Request $request)
     {
-        //
+        $info = new Info;
+        $info->eta = $request->eta;
+        $info->time_to_get_up = $request->time_to_get_up;
+        $info->residence_longitude = "";
+        $info->residence_latitude = "";
+        $info->destination_longitude = "";
+        $info->destination_latitude = "";
+        $info->transport_type = $request->transport_type;
+        $info->save();
+
+        return redirect()->route('infos.index')->with('success', 'Infos');
     }
 
     /**
