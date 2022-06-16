@@ -38,8 +38,12 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::get('/infos', [InfoController::class, 'index'])->name('infos.index');
+    /*Route::get('/infos', [InfoController::class, 'index'])->name('infos.index');
     Route::get('/infos/create', [InfoController::class, 'create'])->name('infos.create');
     Route::post('/infos/store', [InfoController::class, 'store'])->name('infos.store');
+    Route::get('infos/{id}', [InfoController::class, 'show'])->name('infos.show');
+*/
+
+    Route::resource('infos', InfoController::class);
 
 });

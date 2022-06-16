@@ -5,8 +5,6 @@
             <div class="max-w-7xl mx-auto px-6">
 
                 <quad-link href="/infos/create/" color="purple">Erstellen</quad-link>
-
-                <p>{{ infos }}</p>
                 
                 <section>
                     <div class="container py-6 grid grid-cols-1 gap-4 m-auto">
@@ -33,23 +31,7 @@
                             </div>
 
                             <quad-link :href="'/infos/' + info.id" color="purple">Berechnen</quad-link>
-
-
-                            <!--<img :src="'/storage/' + teacher.image" :alt="teacher.name" class="w-full" />
-                            <div class="pt-4 px-4 text-center h-full">
-                                <h3>
-                                    <a href="javascript:void(0)" class="font-semibold text-dark text-xl sm:text-[22px] md:text-xl lg:text-[22px] xl:text-xl 2xl:text-[22px] mb-4 block hover:text-primary">
-                                        {{ teacher.name }}
-                                    </a>
-                                </h3>
-                                <p v-if="teacher.description" class="text-base text-body-color leading-relaxed mb-7">
-                                    <span v-html="teacher.raw_description.length < 150 ? teacher.raw_description : teacher.raw_description.substring(0, 150) + '...' "></span>
-                                </p>
-                            </div>
-                            <div v-if="teacher.description" class="pb-6 text-center">
-                                <quad-button color="yellow" @click="showModal(teacher)">Mehr lesen</quad-button>
-                            </div>-->
-                            
+                            <quad-button @click="deleteInfo(info)" color="red">Löschen</quad-button>
 
                         </div>
                     </div>
@@ -63,6 +45,7 @@
 
 <script>
     import { defineComponent } from 'vue'
+    import { Inertia } from '@inertiajs/inertia'
     import AppLayout from '@/Layouts/AppLayout.vue'
     import QuadButton from '@/Components/Button.vue'
     import QuadPageImage from '@/Components/PageImage.vue'
@@ -102,6 +85,9 @@
             closeModal() {
                 this.showingModal = false;
             },
+            deleteInfo(info) {
+                this.$inertia.delete(`/infos/${info.id}`);
+            }
         },
     })
 </script>

@@ -6,7 +6,7 @@
 
                 <div class="bg-white p-4 shadow-lg rounded-lg">
 
-                    <h1 class="font-semibold text-2xl">Moin</h1>
+                    <h1 class="font-semibold text-2xl">Route erstellen</h1>
 
                     <form @submit.prevent="submit">
 
@@ -35,14 +35,19 @@
                         <div class="mt-4">
                             <quad-label for="transport_type" value="Weg zur Schule" />
                             <quad-select id="transport_type" class="mt-1 block w-full" v-model="form.transport_type" color="yellow" :strength="200" required>
-                                <option value="opnv">ÖPNV</option>
-                                <option value="auto">Auto</option>
+                                <option value="driving-car">Auto</option>
+                                <option value="driving-hgv">Lastkraftwagen</option>
+                                <option value="cycling-regular">Fahrrad</option>
+                                <option value="cycling-road">Rennrad</option>
+                                <option value="cycling-mountain">Mountainbike</option>
+                                <option value="cycling-electric">E-Bike</option>
+                                <option value="foot-walking">Zu Fuß (Laufen)</option>
+                                <option value="foot-hiking">Zu Fuß (Wandern)</option>
                             </quad-select>
                         </div>
 
                         <div class="mt-4 flex flex-row space-x-2">
-                            <quad-button id="calculate" class="inline mt-1 w-1/2" type="submit" color="yellow" :strength="100">Berechnen</quad-button>
-                            <quad-button id="save" class="mt-1 w-3/4" type="submit" color="yellow" :strength="100">Speichern</quad-button>
+                            <quad-button id="save" class="mt-1" type="submit" color="yellow" :strength="100">Speichern</quad-button>
                         </div>
                     </form>
 
@@ -99,7 +104,7 @@
         methods: {
             submit() {
                 this.form.post(this.route('infos.store'), {
-                    onFinish: () => this.form.reset('eta', 'time_to_get_up', 'residence', 'destination', 'transport_type'),
+                    // onFinish: () => this.form.reset('eta', 'time_to_get_up', 'residence', 'destination', 'transport_type'),
                 })
             }
         }

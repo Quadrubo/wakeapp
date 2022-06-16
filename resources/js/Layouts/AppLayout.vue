@@ -23,7 +23,7 @@
                                     Start
                                 </quad-nav-link>
                                 <quad-nav-link :href="route('infos.index')" :active="route().current('infos.index')" color="red">
-                                    Infos
+                                    Routen
                                 </quad-nav-link>
                             </div>
                         </div>
@@ -98,7 +98,7 @@
                             Start
                         </quad-responsive-nav-link>
                          <quad-responsive-nav-link :href="route('infos.index')" :active="route().current('infos.index')" color="red">
-                            Info
+                            Routen
                         </quad-responsive-nav-link>
                     </div>
 
